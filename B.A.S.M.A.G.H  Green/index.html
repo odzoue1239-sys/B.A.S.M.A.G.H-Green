@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B.A.S.M.A.G.H Green – Carte, planning et suivi</title>
+<!-- LIEN 1 : le fichier CSS (même dossier) donne le style à tous les id/class ci-dessous -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+<div class="brand"><span class="logo">B</span><div><strong>B.A.S.M.A.G.H Green</strong><small>Du déchet à la ressource, à Dakar</small></div></div>
+<nav id="nav">
+<button data-tab="carte" class="on">Ma carte</button>
+<button data-tab="planning">Planning 2026</button>
+<button data-tab="personnes">Personnes</button>
+<button data-tab="projet">Le projet</button>
+</nav>
+</header>
+
+<main>
+<!-- ONGLET 1 : CARTE -->
+<section id="tab-carte" class="tab on">
+<h1>Retrouver une carte</h1>
+<p class="lead">Entre le matricule inscrit sur la carte (il commence par BG-68).</p>
+<form id="formSearch" class="row">
+<input id="matricule" placeholder="BG-68.." autocomplete="off" required>
+<button class="btn">Chercher</button>
+</form>
+<p id="searchMsg" class="msg"></p>
+<div id="cardView" hidden>
+<div class="card">
+<div class="cardHead"><div><h2 id="cNom"></h2><p id="cInfo"></p></div><span id="cMat" class="mat"></span></div>
+<div id="stamps" class="stamps"></div>
+<dl class="stats">
+<div><dt>Tampons</dt><dd id="cTampons"></dd></div>
+<div><dt>Cartes pleines</dt><dd id="cCartes"></dd></div>
+<div><dt>Plastique apporté</dt><dd id="cKg"></dd></div>
+<div><dt>Total payé</dt><dd id="cPaye"></dd></div>
+</dl>
+</div>
+<form id="formApport" class="panel">
+<h3>Enregistrer un apport</h3>
+<div class="row">
+<label>Poids (kg)<input id="kg" type="number" min="0.5" step="0.5" value="2" required></label>
+<label>Date<input id="dateApport" type="date" required></label>
+<button class="btn">Valider et payer</button>
+</div>
+<p id="apportMsg" class="msg"></p>
+</form>
+<h3>Historique</h3>
+<ul id="histo" class="histo"></ul>
+</div>
+</section>
+
+<!-- ONGLET 2 : PLANNING -->
+<section id="tab-planning" class="tab">
+<h1>Planning de ramassage 2026</h1>
+<p class="lead">Un ramassage tous les 2 jours. Si la collecte a lieu un jour, la suivante est automatiquement prévue 2 jours après.</p>
+<div class="panel row">
+<label>Un ramassage a eu lieu le<input id="anchor" type="date" min="2026-01-01" max="2026-12-31"></label>
+<button id="btnToday" class="btn alt" type="button">Collecte faite aujourd’hui</button>
+</div>
+<div class="calHead">
+<button id="prev" class="btn alt" type="button" aria-label="Mois précédent">‹</button>
+<h2 id="monthTitle"></h2>
+<button id="next" class="btn alt" type="button" aria-label="Mois suivant">›</button>
+</div>
+<div id="calendar" class="cal"></div>
+<p class="legend"><span class="dot pick"></span> jour de ramassage <span class="dot now"></span> aujourd’hui</p>
+<h3>Prochaines collectes</h3>
+<ul id="nextList" class="histo"></ul>
+</section>
+
+<!-- ONGLET 3 : PERSONNES -->
+<section id="tab-personnes" class="tab">
+<h1>Participants et collecteurs</h1>
+<div class="two">
+<form id="formPerson" class="panel">
+<h3>Nouveau participant</h3>
+<label>Nom complet<input id="pNom" required></label>
+<label>Quartier<input id="pQuartier" required></label>
+<label>Téléphone<input id="pTel" type="tel"></label>
+<button class="btn">Créer la carte</button>
+<p id="pMsg" class="msg"></p>
+</form>
+<form id="formCollector" class="panel">
+<h3>Nouveau collecteur</h3>
+<label>Nom complet<input id="kNom" required></label>
+<label>Zone couverte<input id="kZone" required></label>
+<label>Téléphone<input id="kTel" type="tel"></label>
+<button class="btn">Ajouter</button>
+</form>
+</div>
+<h3>Participants</h3>
+<div class="scroll"><table id="tPeople"></table></div>
+<h3>Collecteurs (ils tournent dans cet ordre)</h3>
+<div class="scroll"><table id="tCollectors"></table></div>
+</section>
+
+<!-- ONGLET 4 : PROJET -->
+<section id="tab-projet" class="tab">
+<h1>Comment ça marche</h1>
+<p class="lead">Tu apportes ton plastique, il est pesé, tu es payé tout de suite en espèces et ta carte avance.</p>
+<div class="panel">
+<h3>Règles de la carte</h3>
+<ul class="rules">
+<li>2 kg minimum valident un tampon ; on peut apporter plus, tout est payé au kilo.</li>
+<li>Paiement en espèces dès l’apport, à partir de 60 FCFA le kilo.</li>
+<li>1 tampon maximum tous les 2 jours. Si tu reviens dans la journée, tu es payé sans tampon.</li>
+<li>12 tampons = carte pleine = 250 FCFA de bonus, à chaque carte pleine.</li>
+</ul>
+</div>
+<h3>Les chiffres du modèle (estimations mensuelles, FCFA)</h3>
+<div class="scroll">
+<table>
+<tr><th>Activité</th><th>Hypothèse</th><th>Recettes</th><th>Dépenses</th><th>Solde</th></tr>
+<tr><td>1. Revente des déchets</td><td>1 500 kg à 200 FCFA/kg</td><td>300 000</td><td>165 000</td><td>135 000</td></tr>
+<tr><td>2. Abonnements ménages</td><td>100 × 1 000</td><td>100 000</td><td>45 000</td><td>55 000</td></tr>
+<tr><td>3. Contrats entreprises</td><td>10 × 20 000</td><td>200 000</td><td>110 000</td><td>90 000</td></tr>
+<tr><td>Bonus cartes + frais communs</td><td>31 250 + 65 000</td><td>—</td><td>96 250</td><td>−96 250</td></tr>
+<tr class="total"><td>Total lancement</td><td></td><td>600 000</td><td>416 250</td><td>183 750</td></tr>
+</table>
+</div>
+<h3>Activités prévues plus tard</h3>
+<div class="two">
+<div class="panel"><h4>4. Transformation</h4><p>Pavés, bacs, bancs, piquets en plastique recyclé. Environ 15 000 FCFA de solde par lot, avant amortissement des machines.</p></div>
+<div class="panel"><h4>5. Prestations industrielles</h4><p>Diagnostic, audit de tri, plan de gestion des déchets. Environ 60 000 FCFA de solde par mission.</p></div>
+</div>
+<p class="small">Tous les montants sont des hypothèses à valider sur le terrain, avant impôts et rémunérations.</p>
+</section>
+</main>
+
+<footer>Groupe n° 68 – Awa Sarr, Mariétou Lassana, Binetou Cheikh Ly, KOUYI ODZOUE Gilles Emmanuel, Adja Sarata GUEYE, Aicha Ngoné Sarr, Djieyna Hanne</footer>
+
+<!-- LIEN 2 : le fichier JavaScript (même dossier) lit ces id/class et affiche les données -->
+<script src="script.js"></script>
+</body>
+</html>
